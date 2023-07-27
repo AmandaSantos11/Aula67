@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class CompraTest {
 
@@ -63,6 +64,27 @@ class CompraTest {
         val retornoRecebido = compra.mostrarListaDeCompra(listaDeCompra)
 
         assertEquals(retornoEsperado,retornoRecebido)
+    }
+
+    //ETAPA 2
+    @Test
+    fun verificaACompraComOfertaCaiEmExcecao(){
+        var listaDeCompra = mutableListOf<Produto>()
+        assertThrows<IllegalArgumentException> { compra.compraComOferta(0,listaDeCompra) }
+    }
+    @Test
+    fun verificaSeAlteraQuantidadeDaListaDeCompraQuandoCompraComOfertaMaca(){
+        var listaDeCompra = mutableListOf<Produto>()
+        listaDeCompra.add(Maca("Maça",0.60))
+        compra.compraComOferta(1,listaDeCompra)
+        assertTrue(listaDeCompra.size==3)
+    }
+    @Test
+    fun verificaSeAlteraQuantidadeDaListaDeCompraQuandoCompraComOfertaLaranja(){
+        var listaDeCompra = mutableListOf<Produto>()
+        listaDeCompra.add(Laranja("Laranja",0.25))
+        compra.compraComOferta(2,listaDeCompra)
+        assertTrue(listaDeCompra.size==4)
     }
 
 }
